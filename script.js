@@ -30,9 +30,12 @@ const displayHeader = (data) =>{
         const headerli = document.createElement("li")
         headerli.classList = "nav-item"
         headerli.innerHTML = `
-            <a class="nav-link" id =${element.category_id} onclick="displayNews(this.id)"  target="_blank" rel="noopener noreferrer">${element.category_name}</a>
+            <a class="nav-link common-nav" id =${element.category_id} onclick="displayNews(this.id);"  target="_blank" rel="noopener noreferrer">${element.category_name}</a>
         `
+        // setting active nav
         headerUl.appendChild(headerli)
+
+     
     });
     
 }
@@ -52,7 +55,7 @@ const showNews = (news) =>{
     newsSection.textContent ='';
       // stop spinner
     toggleLoader(false)
-    
+
     if(sortedObj.length > 0){
         sortedObj.map( element =>{
             console.log(element)
@@ -101,14 +104,11 @@ const showNews = (news) =>{
                                 <div class="modal-body">${element.details}</div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                                 </div>
                             </div>
                             </div>
-                    </div>
-
-                    
+                    </div> 
                 </div>
                 
             </div>
@@ -127,8 +127,12 @@ const showNews = (news) =>{
     const getTotalLength = document.createElement('div')
     getTotalLength.innerHTML =`
         <div class="jumbotron jumbotron-fluid bg-light">
-            <div class="container">
-                <p class="lead"> ${sortedObj.length}  items found for category.</p>
+            <div class="container length-bg">
+                <p class="lead">Total ${sortedObj.length}  items found for this category.</p>
+            </div>
+            <div class="sort-section container d-flex">
+                <p class="fw-bold me-2">Sort By View:</p>
+                <small> Default &#x21D3;</small>
             </div>
         </div>
     `
