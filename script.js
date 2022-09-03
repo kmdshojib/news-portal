@@ -86,10 +86,10 @@ const showNews = (news) =>{
                                     <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
                                 </svg>
                             </span>
-                            <p class="fw-bold">${element.total_view ? element.total_view : 0}</p>
+                            <p class="fw-bold">${element.total_view ? element.total_view :"No View"}</p>
                         </div>
                         <!-- Button trigger modal -->
-                            <button type="button" class="mx-5 btn btn-primary btn-sm see-all" data-bs-toggle="modal" data-bs-target="#exampleModal">See All</button>
+                            <button id=${element._id} type="button" class="mx-5 btn btn-primary btn-sm see-all" data-bs-toggle="modal" data-bs-target="#exampleModal">See All</button>
 
                             <!-- Modal -->
 
@@ -100,16 +100,20 @@ const showNews = (news) =>{
                                     <h5 class="modal-title" id="exampleModalLabel">${element.title}</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">${element.details}</div>
+                                <div class="modal-body">
+                                    <p>${element.details}</p>
+                                    <p class="fw-bold">Author: ${element.author.name ? element.author.name : "Unknown Author"}</p>
+                                    <p class="fw-bold">View: ${element.total_view ? element.total_view : "No View"}</p>
+                                    <p class="card-text"><small class="text-muted">Published: ${element.author.published_date}</small></p>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 </div>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                     </div> 
                 </div>
-                
             </div>
           `
             newsSection.appendChild(newsItem)
@@ -122,7 +126,8 @@ const showNews = (news) =>{
  
 
     const getTotalLength = document.createElement('div')
-    getTotalLength.innerHTML =`
+    if(sortedObj.length > 0 ){
+        getTotalLength.innerHTML =`
         <div class="jumbotron jumbotron-fluid bg-light">
             <div class="container length-bg">
                 <p class="lead">Total ${sortedObj.length}  items found for this category.</p>
@@ -133,6 +138,19 @@ const showNews = (news) =>{
             </div>
         </div>
     `
+    }else{
+        getTotalLength.innerHTML =`
+        <div class="jumbotron jumbotron-fluid bg-light">
+            <div class="container length-bg">
+                <p class="lead fw-bold">No news found for you!!!</p>
+            </div>
+            <div class="sort-section container d-flex">
+                <p class="fw-bold me-2">Sort By View:</p>
+                <small> Default &#x21D3;</small>
+            </div>
+        </div>`
+    }
+    
     totlaNewsItem.appendChild(getTotalLength);
    
 }

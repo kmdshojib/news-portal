@@ -58,25 +58,34 @@
                 <div class="accordion-body">
                     Arrow functions  a new feature introduced in ES6  enable writing concise functions in JavaScript. While both regular and arrow functions work in a similar manner, yet there are certain interesting differences between them, as discussed below.
                     <br>
-                    let add = (x, y) => x + y;
+                    <code>let add = (x, y) => x + y;</code>
                     <br>
                     Regular functions created using function declarations or expressions are constructible and callable. Since regular functions are constructible, they can be called using the new keyword.
                     <br>
-                    let x = function(){
+                    <code>let x = function(){
                         console.log(arguments);
                     };
-                    new x =(1,2,3);
+                    new x =(1,2,3);</code>
                 </div>
               </div>
             </div>
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingThree">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                  Accordion Item #3
+                    why do we use templates string literal?
                 </button>
               </h2>
               <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                <div class="accordion-body">Template literals provide an easy way to interpolate variables and expressions into strings.The method is called string interpolation.
+                    <br>
+                    <code>
+                        ${...}
+                        let firstName = "John";
+                        let lastName = "Doe";
+
+                        let text = `Welcome ${firstName}, ${lastName}!`;
+                    </code>
+                </div>
               </div>
             </div>
           </div>
