@@ -4,11 +4,25 @@
     cursor: pointer;
 }
 
+/* card detail */
+
+.detail-text{
+    height: 100px !important;
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    
+}
+
+.see-all{
+    width: 100px !important;
+    height: 40px !important;
+}
 /* author avatar */
 
 .avatar {
     vertical-align: middle;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
   }

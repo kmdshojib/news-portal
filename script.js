@@ -14,7 +14,14 @@ const newsHeader = async () =>{
 }
 newsHeader()
 
-
+// fetching the news
+const fetchNews = (newsCategory) =>{
+    const  url = `https://openapi.programming-hero.com/api/news/category/${newsCategory}`
+    fetch(url)
+    .then(res => res.json())
+    .then((data) => showNews(data.data))
+    .catch(err => console.log(err))
+}
 
 const displayHeader = (data) =>{
     const headerUl = document.getElementById("navUl")
@@ -27,21 +34,25 @@ const displayHeader = (data) =>{
         `
         headerUl.appendChild(headerli)
     });
+    
 }
 // taking id from link element
 const displayNews = (id) =>{
     fetchNews(id)
-    
+    toggleLoader(true)
 }
-
 // sorting by views and showing according to the views
 
 const showNews = (news) =>{
     // sorted object
     const sortedObj = (news.sort((a,b) => b.total_view - a.total_view));
+    
     // getting  element from DOM
     const newsSection = document.getElementById('news-section');
     newsSection.textContent ='';
+      // stop spinner
+    toggleLoader(false)
+    
     if(sortedObj.length > 0){
         sortedObj.map( element =>{
             console.log(element)
@@ -50,38 +61,88 @@ const showNews = (news) =>{
             <div class="card mb-3" style="max-width: 740px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src=${element.image_url} class="img-fluid rounded-start" alt="...">
+                        <img src=${element.image_url} class="img-fluid rounded-start mt-2" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                        <h5 class="card-title">${element.title}</hh5>
-                        <p class="card-text">${element.details}</p>
+                        <h5 class="card-title pb-2">${element.title}</h5>
+                        <p class="card-text detail-text">${element.details}</p>
                     </div>
                 </div>
-                <div class="d-flex flex-column">
-                        <img src=${element.author.img} class="avatar" alt="avatar">
-                        <div class="d-flex flex-row">
-                            <p class="card-text"><small class="text-muted">${element.author.name}</small></p>
-                            <p class="card-text"><small class="text-muted">${element.author.published_date}</small></p>
+                    <div class="d-flex flex-row ps-3 justify-content-between">
+                        <div  class="d-flex flex-row ps-3">
+                            <img src=${element.author.img} class="avatar me-2" alt="avatar">
+                            <div class="d-flex flex-column mb-2">
+                                <p class="card-text text-muted mb-0 fw-bold">${element.author.name ? element.author.name : "Unknown Author" }</p>
+                                <p class="card-text"><small class="text-muted">${element.author.published_date}</small></p>
+                            </div>
                         </div>
+                        <div class="d-flex ps-5">
+                            <span class="pe-3 fw-bold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                </svg>
+                            </span>
+                            <p class="fw-bold">${element.total_view ? element.total_view : 0}</p>
+                        </div>
+                        <!-- Button trigger modal -->
+                            <button type="button" class="mx-5 btn btn-primary btn-sm see-all" data-bs-toggle="modal" data-bs-target="#exampleModal">See All</button>
+
+                            <!-- Modal -->
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">${element.title}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">${element.details}</div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                     </div>
+
+                    
                 </div>
+                
             </div>
-            `
+          `
             newsSection.appendChild(newsItem)
+            
         })
-        
+      
+       
+    }
+   
+    const totlaNewsItem = document.getElementById('total-items');
+    totlaNewsItem.textContent = "";
+ 
+
+    const getTotalLength = document.createElement('div')
+    getTotalLength.innerHTML =`
+        <div class="jumbotron jumbotron-fluid bg-light">
+            <div class="container">
+                <p class="lead"> ${sortedObj.length}  items found for category.</p>
+            </div>
+        </div>
+    `
+    totlaNewsItem.appendChild(getTotalLength);
+   
+}
+
+// spinner
+
+const toggleLoader = isLoading =>{
+    const loader = document.getElementById('spinner')
+    if(isLoading){
+        loader.classList.remove('d-none')
+    }else if(!isLoading){
+        loader.classList.add('d-none')
     }
 }
-
-// fetching the news
-const fetchNews = (newsCategory) =>{
-    const  url = `https://openapi.programming-hero.com/api/news/category/${newsCategory}`
-    fetch(url)
-    .then(res => res.json())
-    .then((data) => showNews(data.data))
-    .catch(err => console.log(err))
-}
-
-
-
