@@ -116,8 +116,6 @@ const showNews = (news) =>{
             newsSection.appendChild(newsItem)
             
         })
-      
-       
     }
    
     const totlaNewsItem = document.getElementById('total-items');
