@@ -1,12 +1,16 @@
 // fetch header data
 
-const newsHeader = () =>{
+const newsHeader = async () =>{
     const url = 'https://openapi.programming-hero.com/api/news/categories'
+    try{
+        const res = await fetch(url)
+        const data = await res.json()
+        displayHeader(data.data.news_category)
+    }
+    catch(err){
+        console.log(err)
+    }
 
-    fetch(url)
-    .then(res => res.json())
-    .then(data => displayHeader(data.data.news_category))
-    .catch(err => console.log(err))
 }
 newsHeader()
 
@@ -19,14 +23,27 @@ const displayHeader = (data) =>{
         const headerli = document.createElement("li")
         headerli.classList = "nav-item"
         headerli.innerHTML = `
-            <a class="nav-link" onclick="displayNews(this.id)" id =${element.category_id} target="_blank" rel="noopener noreferrer">${element.category_name}</a>
+            <a class="nav-link" id =${element.category_id} onclick="displayNews(this.id)"  target="_blank" rel="noopener noreferrer">${element.category_name}</a>
         `
         headerUl.appendChild(headerli)
-        console.log(element)
     });
 }
-
+// taking id from link element
 const displayNews = (id) =>{
-    console.log(id)
+    fetchNews(id)
+    
 }
+
+const showNews = (news) =>{
+    console.log(news.sort((a,b) => b.total_view - a.total_view))
+}
+const fetchNews = (newsCategory) =>{
+    const  url = `https://openapi.programming-hero.com/api/news/category/${newsCategory}`
+    fetch(url)
+    .then(res => res.json())
+    .then((data) => showNews(data.data))
+    .catch(err => console.log(err))
+}
+
+
 
