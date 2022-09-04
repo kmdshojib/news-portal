@@ -1,5 +1,7 @@
 // fetch header data
 
+// on load button clicked
+
 const newsHeader = async () =>{
     const url = 'https://openapi.programming-hero.com/api/news/categories'
     try{
@@ -34,11 +36,12 @@ const displayHeader = (data) =>{
         `
         // setting active nav
         headerUl.appendChild(headerli)
-
-     
+        
     });
     
 }
+
+
 // taking id from link element
 const displayNews = (id) =>{
     fetchNews(id)
@@ -57,7 +60,9 @@ const showNews = (news) =>{
     toggleLoader(false)
 
     if(sortedObj.length > 0){
+        
         sortedObj.map( element =>{
+            console.log(element)
             const newsItem = document.createElement("div");
             newsItem.innerHTML = `
             <div class="card mb-3" style="max-width: 740px;">
@@ -89,30 +94,29 @@ const showNews = (news) =>{
                             <p class="fw-bold">${element.total_view ? element.total_view :"No View"}</p>
                         </div>
                         <!-- Button trigger modal -->
-                            <button id=${element._id} type="button" class="mx-5 btn btn-primary btn-sm see-all" data-bs-toggle="modal" data-bs-target="#exampleModal">See All</button>
-
-                            <!-- Modal -->
-
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">${element.title}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>${element.details}</p>
-                                    <p class="fw-bold">Author: ${element.author.name ? element.author.name : "Unknown Author"}</p>
-                                    <p class="fw-bold">View: ${element.total_view ? element.total_view : "No View"}</p>
-                                    <p class="card-text"><small class="text-muted">Published: ${element.author.published_date}</small></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          Launch static backdrop modal
+                        </button>
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">${element.title}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Understood</button>
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
                     </div> 
+                   
                 </div>
             </div>
           `
@@ -120,7 +124,7 @@ const showNews = (news) =>{
             
         })
     }
-   
+
     const totlaNewsItem = document.getElementById('total-items');
     totlaNewsItem.textContent = "";
  
@@ -152,6 +156,10 @@ const showNews = (news) =>{
     }
     
     totlaNewsItem.appendChild(getTotalLength);
+
+    // const modal = () =>{
+        
+    // }
    
 }
 
@@ -165,3 +173,4 @@ const toggleLoader = isLoading =>{
         loader.classList.add('d-none')
     }
 }
+
