@@ -62,7 +62,6 @@ const showNews = (news) =>{
     if(sortedObj.length > 0){
         
         sortedObj.map( element =>{
-            console.log(element)
             const newsItem = document.createElement("div");
             newsItem.innerHTML = `
             <div class="card mb-3" style="max-width: 740px;">
@@ -175,3 +174,6 @@ const toggleLoader = isLoading =>{
     }
 }
 
+window.onload = function(){
+    console.log(document.getElementById("01"))
+}
