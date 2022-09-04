@@ -106,7 +106,6 @@ const showNews = (news) =>{
                                     </div>
                                     <div class="modal-body">
                                     <div >
-                                    
                                     <p >${element.details}</p>
                                     <img src=${element.author.img} class="avatar me-2" alt="avatar">
                                     <p class="card-text text-muted mb-0 fw-bold">${element.author.name ? element.author.name : "Unknown Author" }</p>
