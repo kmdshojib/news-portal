@@ -94,8 +94,8 @@ const showNews = (news) =>{
                             <p class="fw-bold">${element.total_view ? element.total_view :"No View"}</p>
                         </div>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                          Launch static backdrop modal
+                        <button type="button" class="btn btn-primary see-all me-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          See All
                         </button>
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -161,10 +161,6 @@ const showNews = (news) =>{
     }
     
     totlaNewsItem.appendChild(getTotalLength);
-
-    // const modal = () =>{
-        
-    // }
    
 }
 
