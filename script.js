@@ -1,6 +1,6 @@
 // fetch header data
 
-// on load button clicked
+
 
 const newsHeader = async () =>{
     const url = 'https://openapi.programming-hero.com/api/news/categories'
@@ -14,7 +14,12 @@ const newsHeader = async () =>{
     }
 
 }
-newsHeader()
+
+// on load button clicked
+window.onload = async () =>{
+    await newsHeader()
+    document.getElementById('01').click()
+}
 
 // fetching the news
 const fetchNews = (newsCategory) =>{
@@ -174,6 +179,3 @@ const toggleLoader = isLoading =>{
     }
 }
 
-window.onload = function(){
-    console.log(document.getElementById("01"))
-}
